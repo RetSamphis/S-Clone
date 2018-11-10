@@ -3,12 +3,26 @@
 namespace sparky {
 	namespace graphics {
 
+		bool Window::m_Keys[MAX_KEYS];
+		bool Window::m_Buttons[MAX_BUTTONS];
+		double Window::mx, Window::my;
+		void window_Resize(GLFWwindow *,int,int);
+
 		Window::Window(const char *name, int width, int height)
 		{
 			m_Height = height;
 			m_Name = name;
 			m_Width = width;
-			init();
+			if (!init()) {
+				glfwTerminate();
+			}
+
+			for (int i = 0; i < MAX_KEYS; i++) {
+				m_Keys[i] = false;
+			}
+			for (int i = 0; i < MAX_BUTTONS; i++) {
+				m_Buttons[i] = false;
+			}
 		}
 
 		Window::~Window()
@@ -35,18 +49,52 @@ namespace sparky {
 				return false;
 			}
 			glfwMakeContextCurrent(m_Window);
+			glfwSetWindowUserPointer(m_Window, this);
+			glfwSetWindowSizeCallback(m_Window,window_Resize);
+
+
+ 			if (glewInit() != GLEW_OK) {
+				std::cout << "Could not init GLEW!" << std::endl;
+				return false;
+			}
 			return true;
 		}
 
-		void Window::update() const 
-		{
-			glfwPollEvents();
-			glfwSwapBuffers(m_Window);
-		}
 
 		bool Window::closed() const 
 		{
-			return glfwWindowShouldClose(m_Window);
+			return glfwWindowShouldClose(m_Window) == 1;
+		}
+
+
+		bool Window::isKeyPressed(unsigned int keycode) {
+			//TODO: LOGGING
+			if (keycode >= MAX_KEYS)
+				return false;
+			return m_Keys[keycode];
+		}
+
+		void Window::clear() const{
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+
+		void Window::update()
+		{
+			glfwPollEvents();
+			glfwGetFramebufferSize(m_Window, &m_Width, &m_Height);
+			glfwSwapBuffers(m_Window);
+		}
+
+		void window_Resize(GLFWwindow * window, int width, int height) {
+			glViewport(0, 0, width, height);
+		}
+
+
+
+		void key_callack(GLFWwindow* window, int key, int scancode, int action, int mods) 
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->m_Keys[key] = (action != GLFW_RELEASE);
 		}
 	}
 }
