@@ -18,9 +18,10 @@ namespace sparky {
 			int m_Width, m_Height;
 			GLFWwindow* m_Window;
 
-			static bool m_Keys[MAX_KEYS];
-			static bool m_Buttons[MAX_BUTTONS];
-			static double mx, my;
+			bool m_Keys[MAX_KEYS];
+			bool m_Buttons[MAX_BUTTONS];
+			double mx, my;
+
 		public:
 			/*/
 			Constructors
@@ -33,7 +34,9 @@ namespace sparky {
 			/*/
 
 			bool Window::closed() const;
-			static bool isKeyPressed(unsigned int keycode);
+			bool isKeyPressed(unsigned int keycode) const;
+			bool isMouseButtonPressed(unsigned int keycode) const;
+			void getMousePosition(double& x, double &y) const;
 
 
 			/*/
@@ -55,7 +58,9 @@ namespace sparky {
 
 		private:
 			bool Window::init();
-			friend static void key_callack(GLFWwindow* window, int key, int scancode, int action, int mods);
+			friend static void mousecursor_callback(GLFWwindow* window, double xpos, double ypos);
+			friend static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+			friend static void mousebutton_callback(GLFWwindow* window, int key, int action, int mods);
 		};
 
 	}

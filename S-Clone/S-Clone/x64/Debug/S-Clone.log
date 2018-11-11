@@ -1,2 +1,10 @@
-﻿  Window.cpp
+﻿  Mat4.cpp
+c:\users\jesse evans\documents\github\s-clone\s-clone\s-clone\math_func.h(8): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Compiling...
+  Main.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\Jesse Evans\Documents\GitHub\S-Clone\S-Clone\x64\Debug\vc120.pdb'; linking object as if no debug info
   S-Clone.vcxproj -> C:\Users\Jesse Evans\Documents\GitHub\S-Clone\S-Clone\x64\Debug\S-Clone.exe

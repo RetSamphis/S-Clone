@@ -3,10 +3,8 @@
 namespace sparky {
 	namespace graphics {
 
-		bool Window::m_Keys[MAX_KEYS];
-		bool Window::m_Buttons[MAX_BUTTONS];
-		double Window::mx, Window::my;
 		void window_Resize(GLFWwindow *,int,int);
+		void mousebutton_callback(GLFWwindow*, int, int, int);
 
 		Window::Window(const char *name, int width, int height)
 		{
@@ -51,6 +49,9 @@ namespace sparky {
 			glfwMakeContextCurrent(m_Window);
 			glfwSetWindowUserPointer(m_Window, this);
 			glfwSetWindowSizeCallback(m_Window,window_Resize);
+			glfwSetKeyCallback(m_Window, key_callback);
+			glfwSetMouseButtonCallback(m_Window, mousebutton_callback);
+			glfwSetCursorPosCallback(m_Window, mousecursor_callback);
 
 
  			if (glewInit() != GLEW_OK) {
@@ -67,11 +68,25 @@ namespace sparky {
 		}
 
 
-		bool Window::isKeyPressed(unsigned int keycode) {
+		bool Window::isKeyPressed(unsigned int keycode) const
+		{
 			//TODO: LOGGING
 			if (keycode >= MAX_KEYS)
 				return false;
 			return m_Keys[keycode];
+		}
+
+		bool Window::isMouseButtonPressed(unsigned int keycode) const
+		{
+			//TODO: LOGGING
+			if (keycode >= MAX_BUTTONS)
+				return false;
+			return m_Buttons[keycode];
+		}
+		void Window::getMousePosition(double& x, double &y) const
+		{
+			x = mx;
+			y = my;
 		}
 
 		void Window::clear() const{
@@ -91,10 +106,23 @@ namespace sparky {
 
 
 
-		void key_callack(GLFWwindow* window, int key, int scancode, int action, int mods) 
+		void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) 
 		{
 			Window* win = (Window*)glfwGetWindowUserPointer(window);
 			win->m_Keys[key] = (action != GLFW_RELEASE);
+		}
+
+		void mousebutton_callback(GLFWwindow* window, int button, int action, int mods)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->m_Buttons[button] = (action != GLFW_RELEASE);
+		}
+
+		void mousecursor_callback(GLFWwindow* window, double xpos, double ypos)
+		{
+			Window* win = (Window*)glfwGetWindowUserPointer(window);
+			win->mx = xpos;
+			win->my = ypos;
 		}
 	}
 }
