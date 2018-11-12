@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{cbb85806-02f2-498b-903e-8511991c167e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{a783a917-70ed-4bbf-91d8-4cd8a6021052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{65f27e84-94b0-41a6-aab2-5026e231c2b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="Mat4.cpp">
       <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,5 +74,19 @@
     <ClInclude Include="Math_Func.h">
       <Filter>Source Files\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Fileutils.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Source Files\Graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="basic.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="basic.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

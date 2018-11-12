@@ -117,7 +117,7 @@ namespace sparky {
 			return result;
 		}
 
-		static mat4 scale(const vec3& scale)
+		mat4 mat4::scale(const vec3& scale)
 		{
 			mat4 result(1.0f);
 
